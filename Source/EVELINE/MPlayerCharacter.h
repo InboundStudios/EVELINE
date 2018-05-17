@@ -51,6 +51,7 @@ public:
 		void SetPressedJump(const bool& Value);
 	UFUNCTION(BlueprintCallable, Category = CharacterMovement)
 		void SetPressedSprint(const bool& Value);
+	AActor* FindFocusedActor();
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		USpringArmComponent* CameraBoom;
@@ -62,5 +63,13 @@ private:
 		float WalkSpeed=300.0f;
 	UPROPERTY(EditDefaultsOnly, Category = CharacterMovement, meta = (AllowPrivateAccess = "true"))
 		float RunSpeed=600.0f;
+	UPROPERTY(EditDefaultsOnly, Category = CharacterMovement, meta = (AllowPrivateAccess = "true"))
+		float InteractionDistance=1000.0f;
+
+	void HandleHighlight();
 	
+	class IInteractable* FocusedInterface;
+	AActor* FocusedActor;
+	bool bHasNewFocus;
+
 };

@@ -2,6 +2,7 @@
 
 #include "MPlayerController.h"
 #include "MPlayerCharacter.h"
+#include "Interactable.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 void AMPlayerController::SetupInputComponent()
@@ -17,6 +18,7 @@ void AMPlayerController::SetupInputComponent()
 		InputComponent->BindAction("Jump", IE_Released, this, &AMPlayerController::StopJump);
 		InputComponent->BindAction("Sprint", IE_Pressed, this, &AMPlayerController::StartSprint);
 		InputComponent->BindAction("Sprint", IE_Released, this, &AMPlayerController::StopSprint);
+		InputComponent->BindAction("Use", IE_Pressed, this, &AMPlayerController::Use);
 	}
 }
 
@@ -102,7 +104,7 @@ void AMPlayerController::StartSprint()
 	{
 		PlayerRef = Cast<AMPlayerCharacter>(GetPawn());
 	}
-	else if (PlayerRef)
+	else
 	{
 		PlayerRef->SetPressedSprint(true);
 		PlayerRef->GetCharacterMovement()->MaxWalkSpeed = PlayerRef->GetRunSpeed();
@@ -115,9 +117,27 @@ void AMPlayerController::StopSprint()
 		PlayerRef = Cast<AMPlayerCharacter>(GetPawn());
 
 	}
-	else if (PlayerRef)
+	else
 	{
 		PlayerRef->SetPressedSprint(false);
 		PlayerRef->GetCharacterMovement()->MaxWalkSpeed = PlayerRef->GetWalkSpeed();
+	}
+}
+void AMPlayerController::Use()
+{
+	
+	if (!PlayerRef)
+	{
+		PlayerRef = Cast<AMPlayerCharacter>(GetPawn());
+	}
+	else
+	{
+		AActor* InteractableActor = PlayerRef->FindFocusedActor();
+		IInteractable* Interactable = Cast<IInteractable>(InteractableActor);
+		if (Interactable)
+		{
+			
+			Interactable->Execute_OnInteract(InteractableActor, PlayerRef);
+		}
 	}
 }

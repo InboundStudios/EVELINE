@@ -21,6 +21,7 @@ private:
 	void StopJump();
 	void StartSprint();
 	void StopSprint();
+	void Use();
 	class AMPlayerCharacter* PlayerRef;
 	
 	
