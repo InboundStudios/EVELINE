@@ -2,5 +2,22 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Core.h"
+#include "EVELINE.generated.h"
 
+
+USTRUCT(BlueprintType)
+struct FBackpackItem
+{
+	GENERATED_USTRUCT_BODY()
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Items)
+		class AWeaponBase* Weapon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Items)
+		int32 Slot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Items)
+		bool bIsSelected;
+	inline bool operator==(const FBackpackItem& f) const
+	{
+		return Weapon == f.Weapon;
+	}
+};
