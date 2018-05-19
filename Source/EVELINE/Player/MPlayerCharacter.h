@@ -28,6 +28,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION(BlueprintPure,Category=Stats)
+		inline bool IsAlive() const
+	{
+		return true;
+	}
 	UFUNCTION(BlueprintPure,Category=CharacterMovement)
 		inline bool GetPressedJump() const
 	{

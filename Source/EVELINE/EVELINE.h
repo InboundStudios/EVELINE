@@ -21,3 +21,9 @@ struct FBackpackItem
 		return Weapon == f.Weapon;
 	}
 };
+UENUM(BlueprintType)
+enum class EAmmoType : uint8
+{
+	AT_Bullets UMETA(DisplayName = "Bullets"),
+
+};
